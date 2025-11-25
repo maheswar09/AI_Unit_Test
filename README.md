@@ -1,10 +1,10 @@
 # AI-Powered Multi-Agent Unit Test Generation System
 
-## Architecture & Project Plan (Simplified for All Audiences)
+## Architecture & Project Plan
 
 ---
 
-## 1. What Our Project Is
+## 1. Overview
 
 This project aims to build an automated system that can **generate unit test cases using AI**.  
 Developers spend a lot of time manually writing unit tests. This slows down development and reduces productivity.  
@@ -72,31 +72,39 @@ Think of this system like a team of robots working together.
 
 ### Main Agents:
 
-1. **Planning Agent**
+1. **Analyzer Agent**
+
+   - Understands the code, extracts functions, dependencies, edge cases
+     
+2. **Planning Agent**
 
    - Understands the file
    - Plans what tests must be created
 
-2. **Test Generation Agent**
+3. **Test Generation Agent**
 
    - Writes the actual unit test code
+     
+4. **Mocker Agent**
 
-3. **Execution Agent**
+   - Generates mocks for external dependencies, APIs, DB calls
+   
+5. **Execution Agent**
 
    - Runs the tests in a sandbox
    - Collects results
 
-4. **Fixing Agent**
+6. **Fixing Agent**
 
    - Reads test failures
    - Fixes broken test cases
 
-5. **Coverage Agent**
+7. **Coverage Agent**
 
    - Calculates how much code is tested
    - Ensures target coverage is met
 
-6. **Reporting / Commit Agent**
+9. **Reporting / Commit Agent**
    - Saves test files
    - Commits them to GitHub
    - Sends results to CI/CD
@@ -106,14 +114,15 @@ Think of this system like a team of robots working together.
 ## 6. Full System Workflow
 
 1. Developer submits a pull request
-2. Code is analyzed
-3. Planning agent identifies functions to test
+2. Analyzer Agent reads code and generates metadata
+3. Planning agent splits this metadata into tasks
 4. Test generation agent creates unit test file
-5. Execution agent runs tests
-6. If tests fail, fixing agent tries again
-7. Coverage agent checks percentage
-8. Final tests are committed to repo
-9. CI/CD pipeline continues normally
+5. Mocker injects mocks/stubs
+6. Execution agent runs tests
+7. If tests fail, fixing agent tries again
+8. Coverage agent checks percentage
+9. Final tests are committed to repo
+10. CI/CD pipeline continues normally
 
 ---
 
@@ -126,15 +135,15 @@ Think of this system like a team of robots working together.
 - Improves code quality
 - Ensures consistent test coverage
 - Works automatically after PR / merge
-- Can be integrated into any IDE or CI/CD
 
 ### Cons:
 
-- LLMs may generate incorrect tests
+- Hard to design reliable test execution sandboxes
+- Requires careful prompt design
+- May generate overly broad tests without Analyzer Agent
 - Running tests repeatedly may cost compute time
 - Requires initial setup and workflow design
 - Needs tuning for different tech stacks
-- Not all edge cases may be captured
 
 ---
 
@@ -151,23 +160,19 @@ Think of this system like a team of robots working together.
 
 ### **Phase 2 – Advanced Test System**
 
-- Add code coverage agent
+- Add code coverage agent, mocker agent
 - Add retry loops for fixing failed tests
 - Support for multiple languages (Python, JS, TS, Java)
-- Add commit agent
 
 ### **Phase 3 – Full CI/CD Integration**
 
+- Add analyzer agent
 - Auto-run after every PR
-- Auto-commit test files
+- Add commit agent and auto-commit test files
+
+### **Phase 4 – Notifications (optional)**
+
 - Slack/Email notifications
-- IDE extension support
-
-### **Phase 4 – Intelligent Analyzer Agent (optional)**
-
-- Deep code understanding
-- Detect missing edge cases
-- Generate integration tests
 
 ---
 
@@ -177,7 +182,5 @@ We are building an AI-driven system that automatically generates and maintains u
 This will greatly improve developer productivity, reduce bugs, and automate repetitive work.  
 Using LangGraph ensures we have a stable, scalable, and production-ready workflow.  
 The system is divided into phases to ensure we build it gradually and safely.
-
-This document explains the architecture in simple terms so anyone can understand it.
 
 ---
